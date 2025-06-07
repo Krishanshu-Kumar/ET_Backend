@@ -13,11 +13,13 @@ public class AuthController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly PasswordService _passwordService;
+    private readonly JwtService _jwtService;
 
-    public AuthController(AppDbContext context, PasswordService passwordService)
+    public AuthController(AppDbContext context, PasswordService passwordService, JwtService jwtService)
     {
         _context = context;
         _passwordService = passwordService;
+        _jwtService = jwtService;
     }
 
     [HttpPost("register")]
@@ -46,4 +48,24 @@ public class AuthController : ControllerBase
 
         return Ok(new { message = "User registered successfully" });
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        var user = await _context.Users.Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Email == request.Email);
+
+        if (user == null || user.PasswordHash == null)
+            return Unauthorized(new { message = "Invalid credentials" });
+
+        var passwordValid = _passwordService.VerifyPassword(user.PasswordHash, request.Password);
+        if (!passwordValid)
+            return Unauthorized(new { message = "Invalid credentials" });
+
+        var role = await _context.Roles.FindAsync(user.RoleId);
+        var token = _jwtService.GenerateToken(user, role?.Name ?? "User");
+
+        return Ok(new { token });
+    }
+
 }
