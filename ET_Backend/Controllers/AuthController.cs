@@ -25,24 +25,20 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        // 1. Check if email already exists
         var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
         if (existingUser != null)
             return BadRequest(new { message = "Email is already registered." });
 
-        // 2. Hash the password
         var hashedPassword = _passwordService.HashPassword(request.Password);
 
-        // 3. Create user with default role 'User' (role_id = 2)
         var newUser = new User
         {
             Username = request.Username,
             Email = request.Email,
             PasswordHash = hashedPassword,
-            RoleId = 2 // Assuming 2 = User role
+            RoleId = 2 
         };
 
-        // 4. Add and save to DB
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync();
 
