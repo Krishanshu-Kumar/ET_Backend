@@ -9,27 +9,17 @@ namespace ET_Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AuthController(AppDbContext context, PasswordService passwordService, JwtService jwtService) : ControllerBase
 {
-    private readonly AppDbContext _context;
-    private readonly PasswordService _passwordService;
-    private readonly JwtService _jwtService;
-
-    public AuthController(AppDbContext context, PasswordService passwordService, JwtService jwtService)
-    {
-        _context = context;
-        _passwordService = passwordService;
-        _jwtService = jwtService;
-    }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        var existingUser = await context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
         if (existingUser != null)
             return BadRequest(new { message = "Email is already registered." });
 
-        var hashedPassword = _passwordService.HashPassword(request.Password);
+        var hashedPassword = passwordService.HashPassword(request.Password);
 
         var newUser = new User
         {
@@ -39,8 +29,8 @@ public class AuthController : ControllerBase
             RoleId = 2 
         };
 
-        _context.Users.Add(newUser);
-        await _context.SaveChangesAsync();
+        context.Users.Add(newUser);
+        await context.SaveChangesAsync();
 
         return Ok(new { message = "User registered successfully" });
     }
@@ -48,18 +38,18 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var user = await _context.Users.Include(u => u.Role)
+        var user = await context.Users.Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Email == request.Email);
 
         if (user == null || user.PasswordHash == null)
             return Unauthorized(new { message = "Invalid credentials" });
 
-        var passwordValid = _passwordService.VerifyPassword(user.PasswordHash, request.Password);
+        var passwordValid = passwordService.VerifyPassword(user.PasswordHash, request.Password);
         if (!passwordValid)
             return Unauthorized(new { message = "Invalid credentials" });
 
-        var role = await _context.Roles.FindAsync(user.RoleId);
-        var token = _jwtService.GenerateToken(user, role?.Name ?? "User");
+        var role = await context.Roles.FindAsync(user.RoleId);
+        var token = jwtService.GenerateToken(user, role?.Name ?? "User");
 
         return Ok(new { token });
     }

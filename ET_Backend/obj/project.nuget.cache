@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RcvTDQLgNa8=",
+  "dgSpecHash": "RmjXyfOPdTY=",
   "success": true,
   "projectFilePath": "C:\\Users\\Krish Kumar\\OneDrive\\Documents\\ET_Backend\\ET_Backend\\ET_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Krish Kumar\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Krish Kumar\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\9.0.6\\microsoft.aspnetcore.authentication.google.9.0.6.nupkg.sha512",
     "C:\\Users\\Krish Kumar\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.5\\microsoft.aspnetcore.authentication.jwtbearer.9.0.5.nupkg.sha512",
     "C:\\Users\\Krish Kumar\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.5\\microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512",
     "C:\\Users\\Krish Kumar\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

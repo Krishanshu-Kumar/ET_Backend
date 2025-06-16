@@ -135,3 +135,7 @@ C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\bin\Debug\net9.0\M
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
