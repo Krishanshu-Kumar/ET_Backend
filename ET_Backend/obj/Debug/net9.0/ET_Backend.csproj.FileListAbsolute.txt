@@ -139,3 +139,4 @@ C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\r
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+C:\Users\Krish Kumar\OneDrive\Documents\ET_Backend\ET_Backend\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.Google.dll
