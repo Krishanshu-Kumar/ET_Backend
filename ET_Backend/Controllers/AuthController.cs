@@ -4,18 +4,19 @@ using ET_Backend.Models;
 using ET_Backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 using ET_Backend.Services;
-
+using ET_Backend.Data.IRepositories;
 namespace ET_Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController(AppDbContext context, PasswordService passwordService, JwtService jwtService) : ControllerBase
+public class AuthController(IUnitOfWork unitOfWork,AppDbContext context, PasswordService passwordService, JwtService jwtService) : ControllerBase
 {
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var existingUser = await context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        var existingUser = await unitOfWork.Auth.SingleOrDefaultAsync(itar => itar.Email == request.Email);
+        // var existingUser = await context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
         if (existingUser != null)
             return BadRequest(new { message = "Email is already registered." });
 
@@ -30,7 +31,7 @@ public class AuthController(AppDbContext context, PasswordService passwordServic
         };
 
         context.Users.Add(newUser);
-        await context.SaveChangesAsync();
+        await unitOfWork.CompleteAsync();
 
         return Ok(new { message = "User registered successfully" });
     }
