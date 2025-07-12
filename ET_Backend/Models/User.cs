@@ -32,6 +32,6 @@ public class User
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    [Column("updated_at")]
+    [Column("modified_at")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

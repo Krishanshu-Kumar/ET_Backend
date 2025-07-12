@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using ET_Backend.Models.AccountsModel;
 using ET_Backend.DTOs.AccountsDTO;
 
-
 namespace ET_Backend.Data.Repositories.AccountsRepository;
 
 public class AccountsRepo : Repository<AccountsModel>, IAccountsRepo

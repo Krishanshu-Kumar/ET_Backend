@@ -10,10 +10,10 @@ public class BaseEntity
     [Column("modified_by")]
     public string? ModifiedBy { get; set; }
 
-    [Column("created_date")]
+    [Column("created_at")]
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-    [Column("modified_date")]
+    [Column("modified_at")]
     public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
 
 }

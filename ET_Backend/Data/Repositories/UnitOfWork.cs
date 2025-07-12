@@ -1,8 +1,10 @@
-using System.Threading.Tasks;
+using ET_Backend.Data.IRepositories;
 using ET_Backend.Data.IRepositories.IAuthRepo;
 using ET_Backend.Data.IRepositories.IAccountsRepository;
-using ET_Backend.Data.IRepositories;
 using ET_Backend.Data.Repositories.AccountsRepository;
+using ET_Backend.Data.IRepositories.ICategoriesRepository;
+using ET_Backend.Data.Repositories.CategoriesRepository;
+using ET_Backend.Models.CategoriesModel;
 
 namespace ET_Backend.Data.Repositories;
 
@@ -12,12 +14,14 @@ public class UnitOfWork : IUnitOfWork
 
     public IAuthRepository Auth { get; private set; }
     public IAccountsRepo Accounts { get; private set; }
+    public ICategoriesRepo Categories { get; private set; }
 
     public UnitOfWork(AppDbContext context)
     {
         _context = context;
         Auth = new AuthRepository(_context);
         Accounts = new AccountsRepo(_context);
+        Categories = new CategoriesRepo(_context);
     }
 
     public int Complete() => _context.SaveChanges();

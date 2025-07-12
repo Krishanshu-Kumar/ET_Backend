@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ET_Backend.Models;
 using ET_Backend.Models.AccountsModel;
+using ET_Backend.Models.CategoriesModel;
 
 namespace ET_Backend.Data;
 public class AppDbContext : DbContext
@@ -14,6 +15,7 @@ public class AppDbContext : DbContext
 
     #region Accounts
     public DbSet<AccountsModel> Accounts => Set<AccountsModel>();
+    public DbSet<CategoriesModel> Categories => Set<CategoriesModel>();
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
