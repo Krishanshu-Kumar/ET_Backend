@@ -8,3 +8,10 @@ public record AccountsResDTO(
     decimal Balance,
     string Currency
 );
+
+public record AccountsReqDTO(
+    string Name,
+    string Type,
+    decimal Balance,
+    string Currency
+);

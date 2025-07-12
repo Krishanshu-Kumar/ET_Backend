@@ -11,6 +11,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<AccountsModel, AccountsResDTO>().ReverseMap();
+        CreateMap<AccountsModel, AccountsReqDTO>().ReverseMap();
 
     }
 }
