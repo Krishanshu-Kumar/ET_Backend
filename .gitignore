@@ -1,0 +1,20 @@
+# Ignore build output
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# VSCode settings
+.vscode/
+
+# Cache files
+*.cache
+*.dswa.cache.json
+*.razor.cache.json
+
+# Compiled DLLs and executables
+*.dll
+*.exe
+*.pdb

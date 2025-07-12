@@ -14,7 +14,6 @@ using ET_Backend.Models.AccountsModel;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
-
 namespace ET_Backend.Controllers;
 
 [ApiController]
@@ -66,4 +65,35 @@ public class AccountsController(IUnitOfWork unitOfWork, AppDbContext context, IM
         await unitOfWork.CompleteAsync();
         return CreatedAtAction(nameof(GetAccountsById), new { id = account.Id }, account);
     }
+    [HttpPost("updateaccount/{rowid}")]
+    public async Task<IActionResult> UpdateAccount([FromBody] AccountsReqDTO req, Guid rowid)
+    {
+        if (rowid == Guid.Empty)
+            return BadRequest("Invalid row ID.");
+
+        var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (!Guid.TryParse(userIdString, out var userId))
+            return Unauthorized("Invalid user ID in token.");
+
+        var returnVal = await unitOfWork.Accounts.UpdateAccount(req, rowid, userIdString);
+        if (!returnVal)
+            return NotFound("Account not found or update failed.");
+        return Ok("Account updated successfully.");
+    }
+    [HttpDelete("deleteaccount/{rowid}")]
+    public async Task<IActionResult> DeleteAccount(Guid rowid)
+    {
+        if (rowid == Guid.Empty)
+            return BadRequest("Invalid account ID.");
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId))
+            return Unauthorized("User not authorized.");
+
+        var returnVal = await unitOfWork.Accounts.DeleteAccount(rowid, userId);
+        if (!returnVal)
+            return NotFound("Account not found or already deleted.");
+        return Ok("Account deleted successfully.");
+    }
+
 }
