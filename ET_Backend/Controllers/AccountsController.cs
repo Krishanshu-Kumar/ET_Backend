@@ -33,6 +33,15 @@ public class AccountsController(IUnitOfWork unitOfWork, AppDbContext context, IM
         var item = mapper.Map<AccountsResDTO>(accounts);
         return Ok(item);
     }
+    [HttpGet("getaccountsbyuserid/{userid}")]
+    public async Task<ActionResult> GetAccountsByUserId(Guid userid)
+    {
+        var accounts = await unitOfWork.Accounts.FindAsync(itar => itar.UserId == userid);
+        if (accounts == null || !accounts.Any())
+            return NotFound("No accounts found for this user.");
+        var item = mapper.Map<List<AccountsResDTO>>(accounts);
+        return Ok(item);
+    }
     [HttpPost("createaccount")]
     public async Task<ActionResult> CreateAccount([FromBody] AccountsReqDTO req)
     {
@@ -65,8 +74,8 @@ public class AccountsController(IUnitOfWork unitOfWork, AppDbContext context, IM
             return NotFound("Account not found or update failed.");
         return Ok("Account updated successfully.");
     }
-    [HttpDelete("deleteaccount/{rowid}")]
-    public async Task<IActionResult> DeleteAccount(Guid rowid)
+    [HttpDelete("deleteexpenses/{rowid}")]
+    public async Task<IActionResult> DeleteExpenses(Guid rowid)
     {
         if (rowid == Guid.Empty)
             return BadRequest("Invalid account ID.");
@@ -75,10 +84,9 @@ public class AccountsController(IUnitOfWork unitOfWork, AppDbContext context, IM
         if (string.IsNullOrEmpty(userId))
             return Unauthorized("User not authorized.");
 
-        var returnVal = await unitOfWork.Accounts.DeleteAccount(rowid, userId);
+        var returnVal = await unitOfWork.Expenses.DeleteExpenses(rowid, userId);
         if (!returnVal)
             return NotFound("Account not found or already deleted.");
         return Ok("Account deleted successfully.");
     }
-
 }

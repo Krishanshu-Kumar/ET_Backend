@@ -39,7 +39,4 @@ public class AccountsRepo : Repository<AccountsModel>, IAccountsRepo
         await dBcontext.SaveChangesAsync();
         return true;
     }
-
-
-
 }

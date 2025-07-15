@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ET_Backend.Models;
 using ET_Backend.Models.AccountsModel;
 using ET_Backend.Models.CategoriesModel;
+using ET_Backend.Models.ExpensesModel;
 
 namespace ET_Backend.Data;
 public class AppDbContext : DbContext
@@ -16,6 +17,10 @@ public class AppDbContext : DbContext
     #region Accounts
     public DbSet<AccountsModel> Accounts => Set<AccountsModel>();
     public DbSet<CategoriesModel> Categories => Set<CategoriesModel>();
+    #endregion
+
+    #region Transaction - Expenses/Incomes
+    public DbSet<ExpensesModel> Expenses => Set<ExpensesModel>();
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

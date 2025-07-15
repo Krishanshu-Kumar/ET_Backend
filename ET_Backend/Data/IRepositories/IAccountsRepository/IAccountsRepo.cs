@@ -1,6 +1,4 @@
-using ET_Backend.Models;
 using ET_Backend.Models.AccountsModel;
-using System.Threading.Tasks;
 using ET_Backend.DTOs.AccountsDTO;
 
 namespace ET_Backend.Data.IRepositories.IAccountsRepository;
