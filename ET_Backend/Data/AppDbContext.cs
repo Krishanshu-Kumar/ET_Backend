@@ -4,6 +4,7 @@ using ET_Backend.Models.AccountsModel;
 using ET_Backend.Models.CategoriesModel;
 using ET_Backend.Models.ExpensesModel;
 using ET_Backend.Models.IncomesModel;
+using ET_Backend.Models.BudgetsModel;
 
 namespace ET_Backend.Data;
 public class AppDbContext : DbContext
@@ -24,6 +25,8 @@ public class AppDbContext : DbContext
     public DbSet<ExpensesModel> Expenses => Set<ExpensesModel>();
     public DbSet<IncomesModel> Incomes => Set<IncomesModel>();
     #endregion
+
+    public DbSet<BudgetsModel> Budgets => Set<BudgetsModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

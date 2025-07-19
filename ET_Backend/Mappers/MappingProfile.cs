@@ -1,12 +1,16 @@
 using AutoMapper;
 using ET_Backend.DTOs.AccountsDTO;
+using ET_Backend.DTOs.BudgetsDTO;
 using ET_Backend.DTOs.CategoriesDTO;
 using ET_Backend.DTOs.ExpensesDTO;
+using ET_Backend.DTOs.IncomesDTO;
 using ET_Backend.Models.AccountsModel;
+using ET_Backend.Models.BudgetsModel;
 using ET_Backend.Models.CategoriesModel;
 using ET_Backend.Models.ExpensesModel;
+using ET_Backend.Models.IncomesModel;
 
-namespace ET_Backend.Helpers;
+namespace ET_Backend.Mappers;
 
 public class MappingProfile : Profile
 {
@@ -27,5 +31,14 @@ public class MappingProfile : Profile
         CreateMap<ExpensesModel, ExpensesResDTO>().ReverseMap();
         #endregion
 
+        #region Incomes
+        CreateMap<IncomesModel, IncomesReqDTO>().ReverseMap();
+        CreateMap<IncomesModel, IncomesResDTO>().ReverseMap();
+        #endregion
+
+        #region Budgets
+        CreateMap<BudgetsModel, BudgetsReqDTO>().ReverseMap();
+        CreateMap<BudgetsModel, BudgetsResDTO>().ReverseMap();
+        #endregion
     }
 }
