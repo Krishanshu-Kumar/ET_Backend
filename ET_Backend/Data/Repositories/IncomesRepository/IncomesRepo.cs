@@ -1,22 +1,22 @@
-using ET_Backend.Data.IRepositories.IExpensesRepository;
+using ET_Backend.Data.IRepositories.IIncomesRepository;
 using Microsoft.EntityFrameworkCore;
-using ET_Backend.Models.ExpensesModel;
-using ET_Backend.DTOs.ExpensesDTO;
+using ET_Backend.Models.IncomesModel;
+using ET_Backend.DTOs.IncomesDTO;
 
-namespace ET_Backend.Data.Repositories.ExpensesRepository;
+namespace ET_Backend.Data.Repositories.IncomesRepository;
 
-public class ExpensesRepo : Repository<ExpensesModel>, IExpensesRepo
+public class IncomesRepo : Repository<IncomesModel>, IIncomesRepo
 {
     private readonly AppDbContext dBcontext;
 
-    public ExpensesRepo(AppDbContext context) : base(context)
+    public IncomesRepo(AppDbContext context) : base(context)
     {
         dBcontext = context;
     }
 
-    public async Task<bool> UpdateExpenses(ExpensesReqDTO req, Guid rowid, string userid)
+    public async Task<bool> UpdateIncomes(IncomesReqDTO req, Guid rowid, string userid)
     {
-        var result = await dBcontext.Expenses
+        var result = await dBcontext.Incomes
             .Where(prop => prop.Id == rowid)
             .ExecuteUpdateAsync(setters => setters
                 .SetProperty(p => p.UserId, p => req.UserId)
@@ -25,20 +25,20 @@ public class ExpensesRepo : Repository<ExpensesModel>, IExpensesRepo
                 .SetProperty(p => p.Amount, p => req.Amount)
                 .SetProperty(p => p.Currency, p => req.Currency)
                 .SetProperty(p => p.Description, p => req.Description)
-                .SetProperty(p => p.ExpenseDate, p => req.ExpenseDate)
+                .SetProperty(p => p.IncomeDate, p => req.IncomeDate)
                 .SetProperty(p => p.ModifiedBy, p => userid)
                 .SetProperty(p => p.ModifiedDate, p => DateTime.UtcNow)
             );
         return result > 0;
     }
-    public async Task<bool> DeleteExpenses(Guid id, string userId)
+    public async Task<bool> DeleteIncomes(Guid id, string userId)
     {
-        var expenses = await dBcontext.Expenses.FirstOrDefaultAsync(a => a.Id == id);
+        var incomes = await dBcontext.Incomes.FirstOrDefaultAsync(a => a.Id == id);
 
-        if (expenses == null)
+        if (incomes == null)
             return false;
 
-        dBcontext.Expenses.Remove(expenses);
+        dBcontext.Incomes.Remove(incomes);
         await dBcontext.SaveChangesAsync();
         return true;
     }

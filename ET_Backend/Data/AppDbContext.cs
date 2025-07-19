@@ -3,6 +3,7 @@ using ET_Backend.Models;
 using ET_Backend.Models.AccountsModel;
 using ET_Backend.Models.CategoriesModel;
 using ET_Backend.Models.ExpensesModel;
+using ET_Backend.Models.IncomesModel;
 
 namespace ET_Backend.Data;
 public class AppDbContext : DbContext
@@ -19,8 +20,9 @@ public class AppDbContext : DbContext
     public DbSet<CategoriesModel> Categories => Set<CategoriesModel>();
     #endregion
 
-    #region Transaction - Expenses/Incomes
+    #region Transactions - Expenses/Incomes
     public DbSet<ExpensesModel> Expenses => Set<ExpensesModel>();
+    public DbSet<IncomesModel> Incomes => Set<IncomesModel>();
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

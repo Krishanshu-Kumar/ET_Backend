@@ -91,19 +91,19 @@ public class ExpensesController(IUnitOfWork unitOfWork, AppDbContext context, IM
             return NotFound("Account not found or update failed.");
         return Ok("Account updated successfully.");
     }
-    // [HttpDelete("deleteaccount/{rowid}")]
-    // public async Task<IActionResult> DeleteAccount(Guid rowid)
-    // {
-    //     if (rowid == Guid.Empty)
-    //         return BadRequest("Invalid account ID.");
+    [HttpDelete("deleteexpenses/{rowid}")]
+    public async Task<IActionResult> DeleteExpenses(Guid rowid)
+    {
+        if (rowid == Guid.Empty)
+            return BadRequest("Invalid account ID.");
 
-    //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //     if (string.IsNullOrEmpty(userId))
-    //         return Unauthorized("User not authorized.");
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId))
+            return Unauthorized("User not authorized.");
 
-    //     var returnVal = await unitOfWork.Accounts.DeleteAccount(rowid, userId);
-    //     if (!returnVal)
-    //         return NotFound("Account not found or already deleted.");
-    //     return Ok("Account deleted successfully.");
-// }
+        var returnVal = await unitOfWork.Expenses.DeleteExpenses(rowid, userId);
+        if (!returnVal)
+            return NotFound("Expense not found or already deleted.");
+        return Ok("Expense deleted successfully.");
+    }
 }
